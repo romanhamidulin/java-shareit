@@ -23,13 +23,13 @@ class ShareItTests {
 	public void addAndGetUserById() {
 		userService.addUser(new UserDto(null, "test1", "test1@mail.ru"));
 		userService.addUser(new UserDto(null, "test2", "test2@mail.ru"));
-		assertThat(userService.getById(1).getName()).isEqualTo("SecondUser");
+		assertThat(userService.getById(1).getName()).isEqualTo("test2@mail.ru");
 	}
 
 	@Test
 	public void addAndGetUserByNegativeId() {
-		userService.addUser(new UserDto(null, "test1", "test1@mail.ru"));
-		userService.addUser(new UserDto(null, "test2", "test2@mail.ru"));
+		userService.addUser(new UserDto(null, "test3", "test4@mail.ru"));
+		userService.addUser(new UserDto(null, "test4", "test4@mail.ru"));
 		Assertions.assertThatThrownBy(() -> userService.getById(3))
 				.isInstanceOf(NotFoundException.class)
 				.hasMessageContaining("Пользователь с ID 3 - не существует!");
@@ -37,8 +37,8 @@ class ShareItTests {
 
 	@Test
 	public void testCreateItemAndGetHim() {
-		userService.addUser(new UserDto(null, "test1", "test1@mail.ru"));
-		userService.addUser(new UserDto(null, "test2", "test2@mail.ru"));
+		userService.addUser(new UserDto(null, "test5", "test5@mail.ru"));
+		userService.addUser(new UserDto(null, "test6", "test6@mail.ru"));
 		ItemDto itemDrillFromSecondUser = ItemDto.builder()
 				.name("Дрель со сверлом 20 мм")
 				.description("Дрель с помощью которой вы сможете что-то сделать, берите кто хочет")
