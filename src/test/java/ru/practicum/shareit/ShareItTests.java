@@ -28,7 +28,7 @@ class ShareItTests {
 
 	@Test
 	public void addAndGetUserByNegativeId() {
-		userService.addUser(new UserDto(null, "test3", "test4@mail.ru"));
+		userService.addUser(new UserDto(null, "test3", "test3@mail.ru"));
 		userService.addUser(new UserDto(null, "test4", "test4@mail.ru"));
 		Assertions.assertThatThrownBy(() -> userService.getById(3))
 				.isInstanceOf(NotFoundException.class)
