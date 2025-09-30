@@ -23,7 +23,7 @@ class ShareItTests {
 	public void addAndGetUserById() {
 		userService.addUser(new UserDto(null, "test1", "test1@mail.ru"));
 		userService.addUser(new UserDto(null, "test2", "test2@mail.ru"));
-		assertThat(userService.getById(1).getName()).isEqualTo("test2@mail.ru");
+		assertThat(userService.getById(1).getName()).isEqualTo("test2");
 	}
 
 	@Test
