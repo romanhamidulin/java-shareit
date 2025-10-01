@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemController {
     private final ItemService itemService;
-    private static final String REQUEST_HEADER="X-Sharer-User-Id";
+    private static final String REQUEST_HEADER = "X-Sharer-User-Id";
 
     @GetMapping
     public List<ItemDto> getAllUsersItems(@RequestHeader(REQUEST_HEADER) Long userId) {
