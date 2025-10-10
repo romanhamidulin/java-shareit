@@ -1,19 +1,22 @@
-package ru.practicum.shareit.item.model;
+package ru.practicum.shareit.item.entity;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 /**
  * TODO Sprint add-controllers.
  */
-@Data
 @Builder
+@AllArgsConstructor
+@Getter @Setter @ToString
+@Entity
+@Table(name = "items")
 public class Item {
-    @Positive
-    @NotNull
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Length(min = 5, max = 30)
     @NotNull
@@ -28,4 +31,6 @@ public class Item {
     private Long ownerId;
     private Long requestId;
 
+    public Item() {
+    }
 }

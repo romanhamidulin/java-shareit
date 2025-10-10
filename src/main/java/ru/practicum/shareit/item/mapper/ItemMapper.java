@@ -2,7 +2,7 @@ package ru.practicum.shareit.item.mapper;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.item.entity.Item;
 
 @UtilityClass
 public class ItemMapper {
@@ -15,9 +15,9 @@ public class ItemMapper {
                 .build();
     }
 
-    public Item dtoToEntityItem(ItemDto itemDto, long itemId, long ownerId) {
+    public Item dtoToEntityItem(ItemDto itemDto, long ownerId) {
         return Item.builder()
-                .id(itemId)
+                .id(itemDto.getId())
                 .ownerId(ownerId)
                 .name(itemDto.getName())
                 .description(itemDto.getDescription())
