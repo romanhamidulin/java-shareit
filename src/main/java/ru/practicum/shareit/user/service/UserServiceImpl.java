@@ -8,7 +8,7 @@ import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.mapper.UserMapper;
-import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.entity.User;
 import ru.practicum.shareit.user.repository.UserRepository;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        return userRepository.getAllUsers()
+        return userRepository.findAll()
                 .stream()
                 .map(UserMapper::entityUserToDto)
                 .toList();
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(long userId) {
-        User userEntity = userRepository.getById(userId)
+        User userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователь с ID %d - не существует!".formatted(userId)));
         return UserMapper.entityUserToDto(userEntity);
     }
@@ -39,13 +39,19 @@ public class UserServiceImpl implements UserService {
         if (userDto.getEmail() == null)
             throw new ValidationException("Email не должен быть пуст!");
         emailValidate(userDto);
-        return UserMapper.entityUserToDto(userRepository.addUser(userDto));
+        return UserMapper.entityUserToDto(userRepository.save(UserMapper.dtoToEntityItem(userDto)));
     }
 
     @Override
     public UserDto updateUser(UserDto userDto, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new NotFoundException("Пользователь с таким ID %s - не существует!".formatted(userId)));
         emailValidate(userDto);
-        return UserMapper.entityUserToDto(userRepository.updateUser(userDto, userId));
+        String userDtoEmail = userDto.getEmail();
+        if (userDtoEmail != null)
+            user.setEmail(userDto.getEmail());
+        if (userDto.getName() != null) user.setName(userDto.getName());
+        return UserMapper.entityUserToDto(userRepository.save(user));
     }
 
     @Override
@@ -55,10 +61,7 @@ public class UserServiceImpl implements UserService {
 
     private void emailValidate(UserDto userDto) {
         if (userDto.getEmail() != null) {
-            boolean emailAlreadyUse = userRepository.getAllUsers()
-                    .stream()
-                    .map(User::getEmail)
-                    .anyMatch(userDto.getEmail()::equals);
+            boolean emailAlreadyUse = userRepository.existsUserByEmail(userDto.getEmail());
             if (emailAlreadyUse)
                 throw new ExistException("Пользователь с таким email %s - уже существует!".formatted(userDto.getEmail()));
         }

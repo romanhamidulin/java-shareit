@@ -78,7 +78,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     private void hasUser(long userId) {
-        userRepository.getById(userId)
+        userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Пользователя с ID %d - не существует!".formatted(userId)));
     }
 }
