@@ -1,16 +1,26 @@
 package ru.practicum.shareit.booking.dto;
 
-import ru.practicum.shareit.booking.model.BookingStatus;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import ru.practicum.shareit.booking.entity.BookingStatus;
+import ru.practicum.shareit.item.entity.Item;
+import ru.practicum.shareit.user.entity.User;
 
-import java.util.Date;
-
-/**
- * TODO Sprint add-bookings.
- */
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
+@ToString
 public class BookingDto {
-    private Date start;
-    private Date end;
-    private Long itemId;
-    private Long userId;
+    @NotNull
+    private Long id;
+    @NotNull
+    private String start;
+    @NotNull
+    private String end;
+    @NotNull
+    private Item item;
+    @NotNull
     private BookingStatus status;
+    private User booker;
 }
