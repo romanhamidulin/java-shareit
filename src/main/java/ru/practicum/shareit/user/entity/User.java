@@ -13,7 +13,9 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @AllArgsConstructor
 @Entity
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 @Table(name = "users")
 public class User {
     @Id
