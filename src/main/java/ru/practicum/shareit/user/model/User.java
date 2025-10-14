@@ -1,7 +1,8 @@
-package ru.practicum.shareit.item.dto;
+package ru.practicum.shareit.user.model;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -11,15 +12,14 @@ import org.hibernate.validator.constraints.Length;
  */
 @Data
 @Builder
-public class ItemDto {
-    @Positive
+@AllArgsConstructor
+public class User {
+    @NotNull
     private Long id;
-    @Length(min = 5, max = 30)
+    @Length(min = 1, max = 30)
     @NotNull
     private String name;
-    @Length(min = 1, max = 500)
+    @Email
     @NotNull
-    private String description;
-    @NotNull
-    private Boolean available;
+    private String email;
 }
