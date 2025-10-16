@@ -5,6 +5,8 @@ import ru.practicum.shareit.booking.dto.BookingAddDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.entity.Booking;
 import ru.practicum.shareit.item.entity.Item;
+import ru.practicum.shareit.item.mapper.ItemMapper;
+import ru.practicum.shareit.user.mapper.UserMapper;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,8 +21,8 @@ public class BookingMapper {
                 .id(booking.getId())
                 .start(booking.getStart().format(formatter))
                 .end(booking.getEnd().format(formatter))
-                .itemId(booking.getItem() != null ? booking.getItem().getId() : null)
-                .bookerId(booking.getBooker() != null ? booking.getBooker().getId() : null)
+                .item(ItemMapper.entityItemToDto(booking.getItem()))
+                .booker(UserMapper.entityUserToDto(booking.getBooker()))
                 .status(booking.getStatus())
                 .build();
     }
