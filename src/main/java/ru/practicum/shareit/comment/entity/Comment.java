@@ -25,11 +25,11 @@ public class Comment {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "name")
     private User user;
 
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created;
 
     public Comment() {
     }

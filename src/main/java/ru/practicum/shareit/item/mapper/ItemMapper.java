@@ -24,7 +24,7 @@ public class ItemMapper {
         return result;
     }
 
-    public static ItemDtoWithDate entityItemToDtoWithDate(Item item, LocalDateTime last, LocalDateTime next) {
+    public ItemDtoWithDate entityItemToDtoWithDate(Item item, LocalDateTime last, LocalDateTime next) {
         ItemDtoWithDate result = ItemDtoWithDate.builder()
                 .id(item.getId())
                 .name(item.getName())
