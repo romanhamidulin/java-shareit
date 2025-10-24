@@ -2,11 +2,10 @@ package ru.practicum.shareit.user.mapper;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.shareit.user.dto.UserDto;
-import ru.practicum.shareit.user.model.User;
+import ru.practicum.shareit.user.entity.User;
 
 @UtilityClass
 public class UserMapper {
-
     public UserDto entityUserToDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
@@ -15,9 +14,9 @@ public class UserMapper {
                 .build();
     }
 
-    public User dtoToEntityItem(UserDto userDto, long userId) {
+    public User dtoToEntityItem(UserDto userDto) {
         return User.builder()
-                .id(userId)
+                .id(userDto.getId())
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .build();
