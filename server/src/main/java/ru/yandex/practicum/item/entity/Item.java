@@ -33,7 +33,6 @@ public class Item {
     private Boolean available;
     @NotNull
     private Long ownerId;
-    private Long requestId;
     @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<Comment> comments;
     @ManyToOne(fetch = FetchType.LAZY)
