@@ -28,9 +28,13 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getAllBookingsByUserId(Long userId) {
-        return bookingRepository.findBookingsByBookerId(userId).stream()
-                .map(BookingMapper::entityItemToDto)
-                .toList();
+        if (userRepository.existsById(userId)) {
+            return bookingRepository.findBookingsByBookerId(userId).stream()
+                    .map(BookingMapper::entityItemToDto)
+                    .toList();
+        } else {
+            throw new NotFoundException("Пользователь с ID = %d не найден!".formatted(userId));
+        }
     }
 
     @Override
