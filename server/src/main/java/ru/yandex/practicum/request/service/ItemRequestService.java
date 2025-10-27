@@ -5,7 +5,7 @@ import ru.yandex.practicum.request.dto.ItemRequestDto;
 import java.util.List;
 
 public interface ItemRequestService {
-    ItemRequestDto getRequestById(Long requestId);
+    ItemRequestDto getRequestById(Long requestId, Long userId);
 
     List<ItemRequestDto> getCurrentRequests(Long userId);
 

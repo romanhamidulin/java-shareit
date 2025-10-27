@@ -21,8 +21,8 @@ public class ItemRequestClient extends BaseClient {
                 .build());
     }
 
-    public ResponseEntity<Object> getItemRequestById(Long requestId) {
-        return get("/" + requestId);
+    public ResponseEntity<Object> getItemRequestById(Long requestId, Long userId) {
+        return get("/" + requestId, userId);
     }
 
     public ResponseEntity<Object> getItemRequests(Long userId) {
