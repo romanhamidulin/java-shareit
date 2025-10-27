@@ -1,4 +1,4 @@
-package ru.yandex.practicum.request;
+package ru.yandex.practicum.server.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +9,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.yandex.practicum.request.ItemRequestClient;
+import ru.yandex.practicum.request.ItemRequestController;
 import ru.yandex.practicum.request.dto.ItemRequestDto;
 
 import static org.mockito.ArgumentMatchers.*;

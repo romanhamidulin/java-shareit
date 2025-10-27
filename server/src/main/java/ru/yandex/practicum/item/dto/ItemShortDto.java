@@ -6,6 +6,8 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemShortDto {
     private Long id;
     private String name;

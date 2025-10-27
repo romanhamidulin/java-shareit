@@ -2,6 +2,7 @@ package ru.yandex.practicum.item;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,40 +22,41 @@ public class ItemController {
     private static final String REQUEST_HEADER = "X-Sharer-User-Id";
 
     @GetMapping
-    public List<ItemDto> getAllUsersItems(@RequestHeader(REQUEST_HEADER) Long userId) {
+    public List<ItemDto> getAllUsersItems(@RequestHeader(REQUEST_HEADER) @Positive Long userId) {
         return itemService.getAllUsersItems(userId);
     }
 
     @GetMapping("/{itemId}")
-    public ItemDtoWithDate getItemById(@PathVariable Long itemId, @RequestHeader(REQUEST_HEADER) Long userId) {
+    public ItemDtoWithDate getItemById(@PathVariable @Positive Long itemId,
+                                       @RequestHeader(REQUEST_HEADER) @Positive Long userId) {
         return itemService.getItemById(itemId, userId);
     }
 
     @GetMapping("/search")
-    public List<ItemDto> getItemsByText(@RequestParam String text) {
+    public List<ItemDto> getSearchingItemsByText(@RequestParam @Size(max = 300) String text) {
         return itemService.getItemsByText(text);
     }
 
     @PostMapping
-    public ItemDto createNewItem(@Valid @RequestBody ItemDto itemDto, @RequestHeader(REQUEST_HEADER) Long userId) {
+    public ItemDto createNewItem(@RequestBody @Valid ItemDto itemDto, @RequestHeader(REQUEST_HEADER) @Positive Long userId) {
         return itemService.addItem(itemDto, userId);
     }
 
     @PostMapping("/{itemId}/comment")
-    public CommentDto addNewComment(@Valid @RequestBody CommentDto commentDto,
-                                    @Positive @PathVariable Long itemId,
-                                    @RequestHeader(REQUEST_HEADER) Long userId) {
+    public CommentDto createNewComment(@RequestBody @Valid CommentDto commentDto,
+                                       @PathVariable @Positive Long itemId,
+                                       @RequestHeader(REQUEST_HEADER) @Positive Long userId) {
         return itemService.addComment(commentDto, itemId, userId);
     }
 
     @PatchMapping("/{itemId}")
-    public ItemDto updateItem(@RequestBody ItemDto itemDto, @Positive @PathVariable Long itemId,
-                              @Positive @RequestHeader(REQUEST_HEADER) Long userId) {
+    public ItemDto updateItem(@RequestBody @Valid ItemDto itemDto, @PathVariable @Positive Long itemId,
+                              @RequestHeader(REQUEST_HEADER) @Positive Long userId) {
         return itemService.updateItem(itemDto, itemId, userId);
     }
 
     @DeleteMapping("/{itemId}")
-    public void deleteById(@PathVariable Long itemId) {
+    public void deleteItem(@PathVariable @Positive Long itemId) {
         itemService.deleteById(itemId);
     }
 }

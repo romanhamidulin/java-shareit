@@ -12,4 +12,6 @@ public interface ItemRequestRepository extends JpaRepository<ItemRequest, Long> 
 
     @EntityGraph(attributePaths = "items")
     List<ItemRequest> findAllByRequesterIdNotOrderByCreatedDesc(Long requesterId);
+
+
 }

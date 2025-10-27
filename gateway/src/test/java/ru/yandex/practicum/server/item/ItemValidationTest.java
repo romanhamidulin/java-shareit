@@ -1,4 +1,4 @@
-package ru.yandex.practicum.item;
+package ru.yandex.practicum.server.item;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -9,6 +9,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.yandex.practicum.item.ItemClient;
+import ru.yandex.practicum.item.ItemController;
 import ru.yandex.practicum.item.dto.CommentDto;
 import ru.yandex.practicum.item.dto.ItemDto;
 

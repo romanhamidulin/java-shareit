@@ -72,19 +72,22 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public ItemDto addItem(ItemDto itemDto, Long userId) {
-        hasUser(userId);
         ItemRequest itemRequest;
         Long requestId = itemDto.getRequestId();
-        Item itemToPost = ItemMapper.dtoToEntityItem(itemDto, userId);
-        if (requestId != null) {
-            if (itemDto.getName() == null)
-                throw new NotAvailableException("Нельзя ответить вещью без названия на запрос");
-            itemRequest = requestRepository.findById(requestId).orElseThrow(
-                    () -> new NotFoundException("Запрос с ID = %d не найден!".formatted(requestId))
-            );
-            itemToPost.setRequest(itemRequest);
+        if (userRepository.existsById(userId)) {
+            Item itemToPost = ItemMapper.dtoToEntityItem(itemDto, userId);
+            if (requestId != null) {
+                if (itemDto.getName() == null)
+                    throw new NotAvailableException("Нельзя ответить вещью без названия на запрос");
+                itemRequest = requestRepository.findById(requestId).orElseThrow(
+                        () -> new NotFoundException("Запрос с ID = %d не найден!".formatted(requestId))
+                );
+                itemToPost.setRequest(itemRequest);
+            }
+            return ItemMapper.entityItemToDto(itemRepository.save(itemToPost));
+        } else {
+            throw new NotFoundException("Пользователя с ID %d - не существует!".formatted(userId));
         }
-        return ItemMapper.entityItemToDto(itemRepository.save(itemToPost));
     }
 
     @Override
@@ -113,32 +116,29 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public ItemDto updateItem(ItemDto itemDto, Long itemId, Long userId) {
-        hasUser(userId);
-        Item itemEntity = itemRepository.findItemByIdAndOwnerId(itemId, userId).orElseThrow(
+        Item item = itemRepository.findItemByIdAndOwnerId(itemId, userId).orElseThrow(
                 () -> new NotFoundException("Вещи с ID %d - не существует!".formatted(itemId)));
+        log.info("Найден Item для update -> {}", item);
+
         String nameDto = itemDto.getName();
         if (nameDto != null) {
-            itemEntity.setName(nameDto);
+            item.setName(nameDto);
         }
         String descriptionDto = itemDto.getDescription();
         if (descriptionDto != null) {
-            itemEntity.setDescription(descriptionDto);
+            item.setDescription(descriptionDto);
         }
         Boolean available = itemDto.getAvailable();
         if (available != null) {
-            itemEntity.setAvailable(available);
+            item.setAvailable(available);
         }
-        return ItemMapper.entityItemToDto(itemRepository.save(itemEntity));
+
+        return ItemMapper.entityItemToDto(itemRepository.save(item));
     }
 
     @Override
     public void deleteById(long itemId) {
         itemRepository.deleteById(itemId);
-    }
-
-    private void hasUser(long userId) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("Пользователя с ID %d - не существует!".formatted(userId)));
     }
 }
 

@@ -40,7 +40,7 @@ class BookingDtoTest {
     @DisplayName("Должен сериализовать BookingDto в JSON")
     void shouldSerializeBookingDto() throws JsonProcessingException {
         // given
-        BookingDto bookingDto = BookingDto.builder()
+        ru.yandex.practicum.booking.dto.BookingDto bookingDto = ru.yandex.practicum.booking.dto.BookingDto.builder()
                 .id(1L)
                 .start("2023-12-01T10:00:00")
                 .end("2023-12-10T10:00:00")
@@ -86,7 +86,7 @@ class BookingDtoTest {
             """;
 
         // when
-        BookingDto result = objectMapper.readValue(json, BookingDto.class);
+        ru.yandex.practicum.booking.dto.BookingDto result = objectMapper.readValue(json, ru.yandex.practicum.booking.dto.BookingDto.class);
 
         // then
         assertThat(result.getId()).isEqualTo(1L);
@@ -118,7 +118,7 @@ class BookingDtoTest {
             """;
 
         // when
-        BookingDto result = objectMapper.readValue(json, BookingDto.class);
+        ru.yandex.practicum.booking.dto.BookingDto result = objectMapper.readValue(json, ru.yandex.practicum.booking.dto.BookingDto.class);
 
         // then
         assertThat(result.getId()).isEqualTo(1L);
@@ -136,7 +136,7 @@ class BookingDtoTest {
         BookingStatus[] statuses = BookingStatus.values();
 
         for (BookingStatus status : statuses) {
-            BookingDto bookingDto = BookingDto.builder()
+            ru.yandex.practicum.booking.dto.BookingDto bookingDto = ru.yandex.practicum.booking.dto.BookingDto.builder()
                     .id(1L)
                     .start("2023-12-01T10:00:00")
                     .end("2023-12-10T10:00:00")
@@ -174,7 +174,7 @@ class BookingDtoTest {
                 """, status);
 
             // when
-            BookingDto result = objectMapper.readValue(json, BookingDto.class);
+            ru.yandex.practicum.booking.dto.BookingDto result = objectMapper.readValue(json, BookingDto.class);
 
             // then
             assertThat(result.getStatus()).isEqualTo(status);

@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemRequestDto {
     private Long id;
     private String description;

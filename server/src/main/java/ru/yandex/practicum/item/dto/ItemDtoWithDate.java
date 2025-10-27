@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemDtoWithDate {
     private Long id;
     @Length(min = 5, max = 30)

@@ -1,4 +1,4 @@
-package ru.yandex.practicum.booking;
+package ru.yandex.practicum.server.booking;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.yandex.practicum.booking.BookingClient;
+import ru.yandex.practicum.booking.BookingController;
 import ru.yandex.practicum.booking.dto.BookingAddDto;
 
 import static org.mockito.ArgumentMatchers.*;

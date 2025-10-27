@@ -19,5 +19,6 @@ public class ItemDto {
     @Length(min = 1, max = 500)
     private String description;
     private Boolean available;
+    private Long requestId;
     private List<CommentDto> comments;
 }

@@ -5,8 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.exception.NotFoundException;
-import ru.yandex.practicum.item.dto.ItemDto;
-import ru.yandex.practicum.item.dto.ItemDtoWithDate;
 import ru.yandex.practicum.item.dto.ItemShortDto;
 import ru.yandex.practicum.item.mapper.ItemMapper;
 import ru.yandex.practicum.item.repository.ItemRepository;
@@ -32,19 +30,20 @@ public class ItemRequestServiceImpl implements ItemRequestService {
 
     @Override
     public ItemRequestDto getRequestById(Long requestId, Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() ->
-                new NotFoundException("Пользователь с таким ID %s - не существует!".formatted(userId)));
+        // Проверяем существование пользователя
+        userRepository.findById(userId).orElseThrow(() ->
+                new NotFoundException("Пользователь с ID %s не существует".formatted(userId)));
+
+        // Находим запрос
         ItemRequest itemRequest = itemRequestRepository.findById(requestId)
-                .orElseThrow(() -> new NotFoundException(String.format("Запрос на предмет с ID = %d не найден!", requestId)));
-        ItemRequestDto responseDto = ItemRequestMapper.toDto(itemRequest);
-        List<ItemShortDto> items = itemRepository.findAllByOwnerId(user.getId()).stream()
-                .map(item -> {
-                    ItemShortDto itemDto = ItemMapper.entityToShortDto(item);
-                    // Очищаем поля, которые не нужны в ответе на запрос
-                    return itemDto;
-                })
+                .orElseThrow(() -> new NotFoundException("Запрос с ID = %d не найден".formatted(requestId)));
+
+        // Находим предметы, связанные с этим запросом
+        List<ItemShortDto> items = itemRepository.findAllByRequestId(requestId).stream()
+                .map(ItemMapper::entityToShortDto)
                 .collect(Collectors.toList());
 
+        ItemRequestDto responseDto = ItemRequestMapper.toDto(itemRequest);
         responseDto.setItems(items);
 
         return responseDto;

@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Builder(setterPrefix = "with")
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentDto {
 
     private Long id;
