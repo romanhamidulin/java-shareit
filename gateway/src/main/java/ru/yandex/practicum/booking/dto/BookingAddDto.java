@@ -1,15 +1,13 @@
 package ru.yandex.practicum.booking.dto;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
 public class BookingAddDto {
     @NotNull
     private String start;

@@ -9,8 +9,12 @@ import java.util.List;
 /**
  * TODO Sprint add-controllers.
  */
-@Data
+@AllArgsConstructor
+@NoArgsConstructor // Добавьте этот конструктор
 @Builder
+@Getter
+@Setter
+@ToString
 public class ItemDto {
     private Long id;
     @Length(min = 5, max = 30)

@@ -7,6 +7,7 @@ import ru.yandex.practicum.item.dto.ItemDto;
 import ru.yandex.practicum.user.dto.UserDto;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @Setter
