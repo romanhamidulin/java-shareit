@@ -1,31 +1,25 @@
 package ru.yandex.practicum.user.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 
 /**
  * TODO Sprint add-controllers.
  */
-@Data
-@Builder
-@AllArgsConstructor
-@Entity
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
+@Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Length(min = 1, max = 30)
-    @NotNull
+    @Column(length = 100, nullable = false)
     private String name;
-    @Email
-    @NotNull
+    @Column(length = 100, nullable = false)
     private String email;
 
     public User() {

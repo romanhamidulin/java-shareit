@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "bookings")
 public class Booking {
@@ -34,6 +35,4 @@ public class Booking {
     private User booker;
     private BookingStatus status;
 
-    public Booking() {
-    }
 }

@@ -13,11 +13,11 @@ import java.util.List;
 /**
  * TODO Sprint add-controllers.
  */
-@Builder
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "items")
 public class Item {

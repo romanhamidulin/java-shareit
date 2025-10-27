@@ -1,15 +1,15 @@
 package ru.yandex.practicum.user.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
-@AllArgsConstructor(onConstructor_ = @JsonCreator)
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
 
     private Long id;
