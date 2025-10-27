@@ -1,9 +1,6 @@
 package ru.yandex.practicum.request.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import ru.yandex.practicum.item.dto.ItemShortDto;
 import ru.yandex.practicum.user.dto.UserDto;
 

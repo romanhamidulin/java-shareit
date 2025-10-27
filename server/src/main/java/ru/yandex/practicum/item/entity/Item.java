@@ -2,7 +2,6 @@ package ru.yandex.practicum.item.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import ru.yandex.practicum.comment.entity.Comment;
@@ -32,7 +31,6 @@ public class Item {
     private String description;
     @NotNull
     private Boolean available;
-    @Positive
     @NotNull
     private Long ownerId;
     private Long requestId;

@@ -1,7 +1,6 @@
 package ru.yandex.practicum.item.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import ru.yandex.practicum.comment.dto.CommentDto;
 
