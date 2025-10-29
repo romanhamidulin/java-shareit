@@ -2,11 +2,12 @@ package ru.yandex.practicum.request;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.request.dto.ItemRequestDto;
 
-@RestController
+@Controller
 @Validated
 @RequiredArgsConstructor
 @RequestMapping(path = "/requests")

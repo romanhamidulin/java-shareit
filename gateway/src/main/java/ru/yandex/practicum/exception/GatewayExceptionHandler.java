@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GatewayExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
         log.warn("Ошибка валидации параметров запроса: {}", ex.getMessage());
         return new ResponseEntity<>(
@@ -24,7 +24,7 @@ public class GatewayExceptionHandler {
         );
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException ex) {
         log.warn("Ошибка валидации параметров запроса: {}", ex.getMessage());
         return new ResponseEntity<>(
@@ -33,7 +33,7 @@ public class GatewayExceptionHandler {
         );
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleUnreadableMessage(HttpMessageNotReadableException ex) {
         log.warn("Некорректный формат JSON: {}", ex.getMessage());
         return new ResponseEntity<>(
@@ -43,7 +43,7 @@ public class GatewayExceptionHandler {
         );
     }
 
-    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleMissingParameter(MissingServletRequestParameterException ex) {
         log.warn("Отсутствует обязательный параметр: {}", ex.getParameterName());
         return new ResponseEntity<>(
@@ -53,7 +53,7 @@ public class GatewayExceptionHandler {
         );
     }
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex) {
         log.warn("Неподдерживаемый HTTP-метод: {}", ex.getMethod());
         return new ResponseEntity<>(
@@ -63,8 +63,8 @@ public class GatewayExceptionHandler {
         );
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleUnknown(Exception ex) {
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleUnknown(Throwable ex) {
         log.error("Неизвестная ошибка в gateway", ex);
         return new ResponseEntity<>(
                 new ErrorResponse("Исключение со стороны сервера",
